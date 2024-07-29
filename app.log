@@ -116,3 +116,20 @@ INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a
  * Running on http://10.0.0.7:8333
 INFO:werkzeug:[33mPress CTRL+C to quit[0m
 INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 10:50:46] "[31m[1mPUT /aircraft/48D4A0 HTTP/1.1[0m" 405 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8333
+ * Running on http://10.0.0.7:8333
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 10:51:10] "PUT /aircraft/48D4A0 HTTP/1.1" 200 -
+INFO:root:GET request received for ModeS: 48D4A0
+INFO:root:Aircraft found for ModeS: 48D4A0
+INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 10:51:16] "GET /aircraft/48D4A0 HTTP/1.1" 200 -
+INFO:root:GET request received for ModeS: 48D4A0
+INFO:root:Aircraft found for ModeS: 48D4A0
+INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 10:52:21] "GET /aircraft/48D4A0 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 10:56:39] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 10:56:39] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:root:GET request received for ModeS: 48DA4A
+WARNING:root:Aircraft not found for ModeS: 48DA4A
+INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 10:56:44] "[33mGET /aircraft/48DA4A HTTP/1.1[0m" 404 -
