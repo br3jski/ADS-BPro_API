@@ -4,7 +4,11 @@ from datetime import datetime
 import logging
 
 app = Flask(__name__)
+# Development server path
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Z:\\BaseStation.sqb'
+# Production server path
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:\\Program Files (x86)\\Kinetic\\BaseStation\\BaseStation.sqb'
+
 db = SQLAlchemy(app)
 
 # Set up logging
@@ -27,7 +31,7 @@ class Aircraft(db.Model):
     PictureURL2 = db.Column(db.String(150))
     PictureURL3 = db.Column(db.String(150))
     OperatorFlagCode = db.Column(db.String(20))
-
+    RegisteredOwners = db.Column(db.String(100))
     def serialize(self):
         return {
             'AircraftID': self.AircraftID,
@@ -65,6 +69,7 @@ def add_aircraft():
         PictureURL2=data.get('PictureURL2'),
         PictureURL3=data.get('PictureURL3'),
         OperatorFlagCode=data['OperatorFlagCode']
+        RegisteredOwners=data.get('RegisteredOwners')
     )
     db.session.add(new_aircraft)
     db.session.commit()
@@ -86,6 +91,7 @@ def update_aircraft(ModeS):
     aircraft.YearBuilt = data.get('YearBuilt')
     aircraft.PictureURL1 = data.get('PictureURL1')
     aircraft.OperatorFlagCode = data['OperatorFlagCode']
+    aircraft.RegisteredOwners = data.get('RegisteredOwners')
     aircraft.LastModified = datetime.now()
     db.session.commit()
     return {'message': 'Aircraft updated successfully'}, 200
@@ -112,7 +118,8 @@ def get_aircraft_by_ModeS(ModeS):
         'PictureURL1': aircraft.PictureURL1,
         'PictureURL2': aircraft.PictureURL2,
         'PictureURL3': aircraft.PictureURL3,
-        'OperatorFlagCode': aircraft.OperatorFlagCode
+        'OperatorFlagCode': aircraft.OperatorFlagCode,
+        'RegisteredOwners': aircraft.RegisteredOwners
     }
 
 @app.route('/aircraft/registration/<string:Registration>', methods=['GET'])
@@ -137,7 +144,8 @@ def get_aircraft_by_Registration(Registration):
         'PictureURL1': aircraft.PictureURL1,
         'PictureURL2': aircraft.PictureURL2,
         'PictureURL3': aircraft.PictureURL3,
-        'OperatorFlagCode': aircraft.OperatorFlagCode
+        'OperatorFlagCode': aircraft.OperatorFlagCode,
+        'RegisteredOwners': aircraft.RegisteredOwners
     }
 
 @app.route('/list', methods=['GET'])
@@ -150,15 +158,16 @@ def list_fleet_by_operator(OperatorFlagCode):
     aircrafts = Aircraft.query.filter_by(OperatorFlagCode=OperatorFlagCode).all()
     return jsonify([aircraft.serialize() for aircraft in aircrafts])
 
+@app.route('/list/types/<string:ICAOTypeCode>', methods=['GET'])
+def list_types_by_code(ICAOTypeCode):
+    aircrafts = Aircraft.query.filter_by(ICAOTypeCode=ICAOTypeCode).all()
+    return jsonify([aircraft.serialize() for aircraft in aircrafts])
+
 @app.route('/list/types', methods=['GET'])
 def list_types():
     types = Aircraft.query.with_entities(Aircraft.ICAOTypeCode).distinct().all()
     return jsonify([{'ICAOTypeCode': code[0]} for code in types])
 
-@app.route('/list/types/<string:ICAOTypeCode>', methods=['GET'])
-def list_types_by_code(ICAOTypeCode):
-    aircrafts = Aircraft.query.filter_by(ICAOTypeCode=ICAOTypeCode).all()
-    return jsonify([aircraft.serialize() for aircraft in aircrafts])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8333)
