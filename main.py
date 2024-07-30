@@ -68,7 +68,7 @@ def add_aircraft():
         PictureURL1=data.get('PictureURL1'),
         PictureURL2=data.get('PictureURL2'),
         PictureURL3=data.get('PictureURL3'),
-        OperatorFlagCode=data['OperatorFlagCode']
+        OperatorFlagCode=data['OperatorFlagCode'],
         RegisteredOwners=data.get('RegisteredOwners')
     )
     db.session.add(new_aircraft)
@@ -167,6 +167,20 @@ def list_types_by_code(ICAOTypeCode):
 def list_types():
     types = Aircraft.query.with_entities(Aircraft.ICAOTypeCode).distinct().all()
     return jsonify([{'ICAOTypeCode': code[0]} for code in types])
+
+@app.route('/airlines', methods=['GET'])
+def list_airlines():
+    airlines = Aircraft.query.with_entities(Aircraft.OperatorFlagCode, Aircraft.RegisteredOwners).distinct().all()
+    return jsonify([{'OperatorFlagCode': code[0], 'RegisteredOwners': code[1]} for code in airlines])
+
+@app.route('/aircraft/<string:ModeS>', methods=['DELETE'])
+def delete_aircraft(ModeS):
+    aircraft = Aircraft.query.filter_by(ModeS=ModeS).first()
+    if aircraft is None:
+        return {'message': 'Aircraft not found'}, 404
+    db.session.delete(aircraft)
+    db.session.commit()
+    return {'message': 'Aircraft deleted successfully'}, 200
 
 
 if __name__ == '__main__':
