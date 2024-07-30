@@ -5,9 +5,9 @@ import logging
 
 app = Flask(__name__)
 # Development server path
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Z:\\BaseStation.sqb'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Z:\\BaseStation.sqb'
 # Production server path
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:\\Program Files (x86)\\Kinetic\\BaseStation\\BaseStation.sqb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:\\Program Files (x86)\\Kinetic\\BaseStation\\BaseStation.sqb'
 
 db = SQLAlchemy(app)
 
