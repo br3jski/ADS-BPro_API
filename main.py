@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import logging
@@ -27,6 +27,24 @@ class Aircraft(db.Model):
     PictureURL2 = db.Column(db.String(150))
     PictureURL3 = db.Column(db.String(150))
     OperatorFlagCode = db.Column(db.String(20))
+
+    def serialize(self):
+        return {
+            'AircraftID': self.AircraftID,
+            'ModeS': self.ModeS,
+            'ModeSCountry': self.ModeSCountry,
+            'Country': self.Country,
+            'Registration': self.Registration,
+            'Manufacturer': self.Manufacturer,
+            'ICAOTypeCode': self.ICAOTypeCode,
+            'Type': self.Type,
+            'SerialNo': self.SerialNo,
+            'YearBuilt': self.YearBuilt,
+            'PictureURL1': self.PictureURL1,
+            'PictureURL2': self.PictureURL2,
+            'PictureURL3': self.PictureURL3,
+            'OperatorFlagCode': self.OperatorFlagCode,
+        }
 
 @app.route('/aircraft', methods=['POST'])
 def add_aircraft():
@@ -121,6 +139,26 @@ def get_aircraft_by_Registration(Registration):
         'PictureURL3': aircraft.PictureURL3,
         'OperatorFlagCode': aircraft.OperatorFlagCode
     }
+
+@app.route('/list', methods=['GET'])
+def list_aircrafts():
+    aircrafts = Aircraft.query.all()
+    return jsonify([aircraft.serialize() for aircraft in aircrafts])
+
+@app.route('/list/fleet/<string:OperatorFlagCode>', methods=['GET'])
+def list_fleet_by_operator(OperatorFlagCode):
+    aircrafts = Aircraft.query.filter_by(OperatorFlagCode=OperatorFlagCode).all()
+    return jsonify([aircraft.serialize() for aircraft in aircrafts])
+
+@app.route('/list/types', methods=['GET'])
+def list_types():
+    types = Aircraft.query.with_entities(Aircraft.ICAOTypeCode).distinct().all()
+    return jsonify([{'ICAOTypeCode': code[0]} for code in types])
+
+@app.route('/list/types/<string:ICAOTypeCode>', methods=['GET'])
+def list_types_by_code(ICAOTypeCode):
+    aircrafts = Aircraft.query.filter_by(ICAOTypeCode=ICAOTypeCode).all()
+    return jsonify([aircraft.serialize() for aircraft in aircrafts])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8333)

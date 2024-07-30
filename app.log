@@ -133,3 +133,108 @@ INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 10:56:39] "[33mGET /favicon.ico HTTP/1
 INFO:root:GET request received for ModeS: 48DA4A
 WARNING:root:Aircraft not found for ModeS: 48DA4A
 INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 10:56:44] "[33mGET /aircraft/48DA4A HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8333
+ * Running on http://10.0.0.7:8333
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+ERROR:main:Exception on /list [GET]
+Traceback (most recent call last):
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Bruce\ADS-BPro_API\main.py", line 146, in list_aircrafts
+    return jsonify([aircraft.serialize() for aircraft in aircrafts])
+           ^^^^^^^
+NameError: name 'jsonify' is not defined
+INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 19:05:06] "[35m[1mGET /list HTTP/1.1[0m" 500 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8333
+ * Running on http://10.0.0.7:8333
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+ERROR:main:Exception on /list [GET]
+Traceback (most recent call last):
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Bruce\ADS-BPro_API\main.py", line 148, in list_aircrafts
+    return jsonify([aircraft.serialize() for aircraft in aircrafts])
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Bruce\ADS-BPro_API\main.py", line 48, in serialize
+    'RegisteredOwners': self.RegisteredOwners
+                        ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Aircraft' object has no attribute 'RegisteredOwners'
+INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 19:06:17] "[35m[1mGET /list HTTP/1.1[0m" 500 -
+ERROR:main:Exception on /list [GET]
+Traceback (most recent call last):
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Bruce\ADS-BPro_API\main.py", line 148, in list_aircrafts
+    return jsonify([aircraft.serialize() for aircraft in aircrafts])
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Bruce\ADS-BPro_API\main.py", line 48, in serialize
+    'RegisteredOwners': self.RegisteredOwners
+                        ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Aircraft' object has no attribute 'RegisteredOwners'
+INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 19:06:28] "[35m[1mGET /list HTTP/1.1[0m" 500 -
+ERROR:main:Exception on /list/fleet/LOT [GET]
+Traceback (most recent call last):
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Bruce\ADS-BPro_API\main.py", line 153, in list_fleet_by_operator
+    return jsonify([aircraft.serialize() for aircraft in aircrafts])
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Bruce\ADS-BPro_API\main.py", line 48, in serialize
+    'RegisteredOwners': self.RegisteredOwners
+                        ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Aircraft' object has no attribute 'RegisteredOwners'
+INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 19:06:36] "[35m[1mGET /list/fleet/LOT HTTP/1.1[0m" 500 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8333
+ * Running on http://10.0.0.7:8333
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 19:07:55] "GET /list/fleet/LOT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 19:08:26] "GET /list/fleet/DLH HTTP/1.1" 200 -
+INFO:root:GET request received for Registration: D-ACND
+INFO:root:Aircraft found for Registration: D-ACND
+INFO:werkzeug:127.0.0.1 - - [29/Jul/2024 19:09:19] "GET /aircraft/registration/D-ACND HTTP/1.1" 200 -
